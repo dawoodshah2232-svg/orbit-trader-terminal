@@ -278,3 +278,31 @@
   body[data-ot-density="comfortable"]{--ot-left:310px;--ot-bottom:265px}
   body[data-ot-density="comfortable"] .rx-qrow,body[data-ot-density="comfortable"] .crow,body[data-ot-density="comfortable"] td{min-height:35px!important}
 }
+
+
+/* v6.3 workstation final: neutralize legacy fixed-width toolbox rules. */
+@media(min-width:1024px){
+  body[data-ot-app="terminal"] #scr-quotes,
+  body[data-ot-app="terminal"] #scr-chart,
+  body[data-ot-app="terminal"] #scr-trade{
+    width:auto!important;max-width:none!important;flex:none!important;
+    justify-self:stretch!important;align-self:stretch!important;
+  }
+  body[data-ot-app="terminal"] #scr-trade .scroll,
+  body[data-ot-app="terminal"] #scr-trade .adv-only,
+  body[data-ot-app="terminal"] #tt-pos,
+  body[data-ot-app="terminal"] #tt-ord,
+  body[data-ot-app="terminal"] #tt-deal,
+  body[data-ot-app="terminal"] #tt-ledger{
+    width:100%!important;max-width:none!important;
+  }
+  body[data-ot-app="terminal"] #scr-trade .rx-tstats{display:none!important}
+  body[data-ot-app="terminal"] #scr-trade .rx-ttabs{display:none!important}
+  body[data-ot-app="terminal"] #scr-trade .rx-tfoot{
+    display:grid!important;grid-template-columns:repeat(3,minmax(130px,1fr))!important;
+    gap:1px!important;margin:0!important;border-top:1px solid var(--ot-ws-border)!important;
+  }
+  body[data-ot-app="terminal"] #scr-trade .rx-tfoot>div{
+    border-radius:0!important;background:#10141a!important;padding:5px 8px!important;
+  }
+}

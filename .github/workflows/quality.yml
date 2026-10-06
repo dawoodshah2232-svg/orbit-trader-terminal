@@ -25,3 +25,28 @@ jobs:
       - run: grep -q 'data-ot-app=' index.html
       - run: "! grep -q 'OrbitTrader 6.1' index.html"
       - run: "! grep -q 'About OrbitTrader 5' index.html"
+
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 > /tmp/orbit-http.log 2>&1 &
+          echo $! > /tmp/orbit-http.pid
+          sleep 2
+      - run: npm run test:visual
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: workstation-screenshots-orbit-trader-terminal
+          path: qa-artifacts/*.png
+          if-no-files-found: warn
+          retention-days: 7

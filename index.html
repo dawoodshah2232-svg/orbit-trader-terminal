@@ -5237,7 +5237,9 @@ function initWide(){const ph=$("phone");if(!ph||$("screens-row"))return;
  const upd=()=>{const on=!!(mq&&mq.matches&&(S.tab==="quotes"||S.tab==="chart"));
   ph.classList.toggle("wide2",on);
   if(on){$("scr-quotes").classList.add("on");$("scr-chart").classList.add("on");
-   if(typeof ensureChart==="function"){ensureChart();if(typeof rxChartRefresh==="function")rxChartRefresh();}}};
+   if(typeof ensureChart==="function"){ensureChart();if(typeof rxChartRefresh==="function")rxChartRefresh();}}
+  else{document.querySelectorAll("#screens-row .screen").forEach(function(x){x.classList.remove("on");});
+   const cur=$("scr-"+S.tab);if(cur)cur.classList.add("on");}};
  if(mq&&mq.addEventListener)mq.addEventListener("change",upd);
  const _nav4=nav;nav=function(n,el){const r=_nav4(n,el);upd();return r;};upd();}
 function initBatch3(){initWide();initSumBand();initSheetSwipe();initLaunch();

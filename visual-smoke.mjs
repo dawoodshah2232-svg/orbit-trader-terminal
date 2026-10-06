@@ -5,7 +5,7 @@ const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFa
 const errors=[];
 page.on("pageerror",e=>errors.push("pageerror: "+e.message));
 page.on("console",m=>{if(m.type()==="error")errors.push("console: "+m.text());});
-await page.goto("http://127.0.0.1:4173/index.html",{waitUntil:"domcontentloaded",timeout:30000});
+await page.goto("http://127.0.0.1:4173/index.html?theme=dark",{waitUntil:"domcontentloaded",timeout:30000});
 await page.waitForTimeout(1800);
 const role=await page.locator("body").getAttribute("data-ot-app");
 if(role==="terminal"){
@@ -14,7 +14,10 @@ if(role==="terminal"){
     const enter=page.getByRole("button",{name:/Enter demo/i});
     if(await enter.count())await enter.first().click();
   }
-  await page.waitForTimeout(1600);
+  await page.waitForTimeout(900);
+  const skip=page.getByRole("button",{name:/^Skip$/i});
+  if(await skip.count() && await skip.first().isVisible())await skip.first().click();
+  await page.waitForTimeout(1000);
 }else if(role==="manager"){
   const demo=page.locator("#entry-demo");
   if(await demo.count() && await demo.isVisible())await demo.click();

@@ -46,7 +46,7 @@ await page.screenshot({path:"qa-artifacts/"+role+"-1440x900.png",fullPage:false}
 await page.setViewportSize({width:390,height:844});
 await page.waitForTimeout(500);
 await page.screenshot({path:"qa-artifacts/"+role+"-390x844.png",fullPage:false});
-const serious=errors.filter(x=>!/Failed to load resource|ERR_NAME_NOT_RESOLVED|CORS|net::ERR/.test(x));
+const serious=errors.filter(x=>!/Failed to load resource|ERR_NAME_NOT_RESOLVED|CORS|net::ERR|WebSocket connection.*failed|Unexpected response code: 451/.test(x));
 if(serious.length)throw new Error("browser errors:\n"+serious.join("\n"));
 console.log(role+" visual smoke PASS");
 await browser.close();

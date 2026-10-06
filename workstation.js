@@ -301,6 +301,30 @@ function dragSplit(node,axis){
     node.addEventListener("pointermove",move);node.addEventListener("pointerup",up);
   });
 }
+function decorateTerminal(){
+  if(app!=="terminal")return;
+  var watch=qs("#scr-quotes"),scroll=qs("#qscroll");
+  if(watch&&scroll&&!qs("#ot-watch-columns")){
+    var h=el("div");h.id="ot-watch-columns";
+    h.innerHTML='<span></span><span>Symbol</span><span></span><span>Bid / Ask</span><span>Chg</span>';
+    watch.insertBefore(h,scroll);
+  }
+  var trade=qs("#scr-trade");
+  if(trade&&!qs("#ot-toolbox-tabs")){
+    var tabs=el("div");tabs.id="ot-toolbox-tabs";
+    [
+      ["Trade",function(){nav("trade");}],
+      ["Exposure",function(){call("sheetExposure");}],
+      ["History",function(){nav("history");}],
+      ["News",function(){call("sheetNews");}],
+      ["Mailbox",function(){call("sheetMailbox");}],
+      ["Calendar",function(){call("sheetCalendar");}],
+      ["Alerts",function(){call("sheetAlertNew",currentSymbol());}],
+      ["Journal",function(){call("sheetJournal");}]
+    ].forEach(function(x){var b=el("button","",x[0]);b.addEventListener("click",x[1]);tabs.appendChild(b);});
+    trade.insertBefore(tabs,trade.firstChild);
+  }
+}
 function buildNavigator(){
   if(app!=="terminal")return;
   var host=qs("#scr-quotes");if(!host||qs("#ot-navigator"))return;
@@ -396,7 +420,7 @@ function hideModeConfusion(){
   try{if(app==="terminal"&&typeof setUiMode==="function")setUiMode("advanced",true);}catch(e){}
 }
 function init(){
-  buildChrome();buildPalette();applyDensity();loadLayout();buildSplitters();buildNavigator();bindContexts();bindKeys();hideModeConfusion();refreshStatus();
+  buildChrome();buildPalette();applyDensity();loadLayout();buildSplitters();buildNavigator();decorateTerminal();bindContexts();bindKeys();hideModeConfusion();refreshStatus();
   setInterval(refreshStatus,1000);
   window.addEventListener("online",refreshStatus);window.addEventListener("offline",refreshStatus);
 }

@@ -1,7 +1,7 @@
 import { chromium } from "playwright";
 import fs from "node:fs";
 const browser=await chromium.launch({headless:true});
-const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
+const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1,locale:"en-US"});
 const errors=[];
 page.on("pageerror",e=>errors.push("pageerror: "+e.message));
 page.on("console",m=>{if(m.type()==="error")errors.push("console: "+m.text());});

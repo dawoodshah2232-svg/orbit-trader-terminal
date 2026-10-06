@@ -2996,7 +2996,7 @@ function sheetSymbol(s){const sp=SPECS[s];const c=symCond(s);const q=FEED?FEED.g
  <div class="kv"><span class="k">Spread</span><span class="v num">${q?spreadPts(s,q)+" points":"—"}</span></div>
  <div class="kv"><span class="k">24h high / low</span><span class="v num">${(()=>{const c=chgOf(s);const dg=q?q.digits:2;return c?c.hi.toFixed(dg)+" / "+c.lo.toFixed(dg):"—";})()}</span></div>
  <div class="kv"><span class="k">Digits</span><span class="v num">${q?q.digits:"—"}</span></div>
- <div class="kv"><span class="k">Contract</span><span class="v num">${c.contract.toLocaleString()} units / lot</span></div>
+ <div class="kv"><span class="k">Contract</span><span class="v num">${c.contract.toLocaleString("en-US")} units / lot</span></div>
  <div class="kv"><span class="k">Min / max lot</span><span class="v num">${c.minLot} / ${c.maxLot}</span></div>
  <div class="kv"><span class="k">Lot step</span><span class="v num">${c.step}</span></div>
  <div class="kv"><span class="k">Swap long / short</span><span class="v num">${money(c.swapLong)} / ${money(c.swapShort)} <small>per lot / night</small></span></div>
@@ -4326,7 +4326,7 @@ function renderAccount(){const eq=equity(),mg=usedMargin(),fr=eq-mg;
  const _am=$("a-mg");if(_am)_am.textContent=money(mg);
  const _af=$("a-free");if(_af)_af.textContent=money(fr);
  const _amb=$("a-mbar");if(_amb)_amb.style.width=clamp(mg/Math.max(eq,1)*100,2,100)+"%";
- const ml=$("a-ml");if(ml){ml.textContent=mg>0?Math.round(eq/mg*100).toLocaleString()+"%":"—";ml.style.color=mg>0&&eq/mg<1.5?"var(--sell)":"var(--profit)";}
+ const ml=$("a-ml");if(ml){ml.textContent=mg>0?Math.round(eq/mg*100).toLocaleString("en-US")+"%":"—";ml.style.color=mg>0&&eq/mg<1.5?"var(--sell)":"var(--profit)";}
  const fl=floatPL();const afl=$("a-fl");if(afl){afl.textContent=(fl>=0?"+":"−")+money(Math.abs(fl)).slice(1);afl.style.color=fl>0.005?"var(--profit)":fl<-0.005?"var(--sell)":"var(--text2)";}
  countUp("trade-pill",eq,money);updSumBand(eq,fl);updDemoWm();
  const _pill=$("trade-pill");if(_pill){_pill.textContent=(fl>=0?"+":"−")+money(Math.abs(fl)).slice(1);_pill.classList.toggle("neg",fl<-0.005);_pill.classList.toggle("pos",fl>0.005);}
@@ -4355,7 +4355,7 @@ function renderAccount(){const eq=equity(),mg=usedMargin(),fr=eq-mg;
  const se=$("cx-free");if(se)se.textContent=money(fr2);
  const se2=$("cx-eq");if(se2)se2.textContent=money(eq2);
  const se3=$("cx-mg");if(se3)se3.textContent=money(mg2);
- const se4=$("cx-ml");if(se4)se4.textContent=mg2>0?Math.round(eq2/mg2*100).toLocaleString()+"%":"—";
+ const se4=$("cx-ml");if(se4)se4.textContent=mg2>0?Math.round(eq2/mg2*100).toLocaleString("en-US")+"%":"—";
  renderAccountScreen();}
 
 /* ================= NEW TERMINAL SCREENS · 2026-10-05 ================= */
@@ -4718,7 +4718,7 @@ function tkCalc(){const q=FEED?FEED.getQuote(tkSym):null;const sp=SPECS[tkSym];
   let rr="";if(SL>0&&TP>0&&ref>0){const risk=Math.abs(SL-ref),rew=Math.abs(TP-ref);if(risk>0)rr=` · R:R <b class="num">1:${(rew/risk).toFixed(2)}</b>`;}
   proj="<br>"+((a||b)?((dir==="buy"?"BUY":"SELL")+" · "+a+(a&&b?" · ":"")+b+rr)
    :'<span style="color:var(--text3)">Set SL / TP to see projected P/L</span>');}
- $("tk-note").innerHTML=`Margin ≈ <b>${money(mg)}</b> · Pip value ≈ <b>${money(pv)}/pip</b>${proj}<br>1 lot = <b>${sp.contract.toLocaleString()} units</b> · leverage 1:${LEVERAGE} · paper trade`;}
+ $("tk-note").innerHTML=`Margin ≈ <b>${money(mg)}</b> · Pip value ≈ <b>${money(pv)}/pip</b>${proj}<br>1 lot = <b>${sp.contract.toLocaleString("en-US")} units</b> · leverage 1:${LEVERAGE} · paper trade`;}
 function tkErr(m){const e=$("tk-err");if(!m){e.classList.remove("on");return true;}e.textContent=m;e.classList.add("on");return false;}
 /* risk % of equity → volume from SL distance */
 function tkRiskApply(){const q=FEED?FEED.getQuote(tkSym):null;const sp=SPECS[tkSym];
@@ -4914,7 +4914,7 @@ function durH(ms){const s=Math.max(0,Math.round(ms/1000));const d=Math.floor(s/8
 function dealReason(r){return r==="partial"?"Partial close":r==="SL/TP"?"SL/TP":r==="SL hit"?"Stop loss":r==="TP hit"?"Take profit":r==="manual"?"Manual":"—";}
 function sheetDeal(id){const d=(S.deals||[]).find(x=>x.id===id);if(!d)return;
  const dg=SPECS[d.sym]?SPECS[d.sym].digits:2;
- const fT=ts=>new Date(ts).toLocaleString([],{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+ const fT=ts=>new Date(ts).toLocaleString("en-US",{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
  const dirC=d.dir==="buy"?"var(--buy)":"var(--sell)";
  const plC=d.pl>=0?"var(--profit)":"var(--sell)";
  const swap=(d.swap||0)!==0?`<div class="kv"><span class="k">Swap</span><span class="v num" style="color:${d.swap>0?"var(--profit)":"var(--sell)"}">${d.swap>0?"+":"−"}${money(Math.abs(d.swap)).slice(1)}</span></div>`:"";
@@ -4948,7 +4948,7 @@ function printStatement(){const ds=[...(S.deals||[])].reverse();
  const rows=ds.map(d=>{const dg=SPECS[d.sym]?SPECS[d.sym].digits:2;
   return `<tr><td>${fmtTime(d.time)}</td><td>${DISP(d.sym)}</td><td>${d.dir.toUpperCase()}</td><td>${d.vol}</td><td>${Number(d.open).toFixed(dg)}</td><td>${Number(d.close).toFixed(dg)}</td><td>${d.pl>=0?"+":"\u2212"}${Math.abs(d.pl).toFixed(2)}</td><td>${esc(dealReason(d.reason))}</td></tr>`;}).join("");
  $("print-area").innerHTML=`<h1>OrbitTrader 6.3 \u2014 Account Statement</h1>
- <p>Account ${S.acctId} \u00B7 ${esc(S.acctLabel||"")} \u00B7 generated ${new Date().toLocaleString()} \u00B7 paper trading, no real money</p>
+ <p>Account ${S.acctId} \u00B7 ${esc(S.acctLabel||"")} \u00B7 generated ${new Date().toLocaleString("en-US")} \u00B7 paper trading, no real money</p>
  <h2>Summary</h2><p>Closed deals: ${ds.length} \u00B7 Net P/L: $${ds.reduce((a,d)=>a+d.pl,0).toFixed(2)} \u00B7 Balance: $${S.balance.toFixed(2)}</p>
  <h2>Closed deals</h2><table><tr><th>Close time</th><th>Symbol</th><th>Dir</th><th>Lots</th><th>Open</th><th>Close</th><th>P/L $</th><th>Reason</th></tr>${rows||'<tr><td colspan="8">No deals yet</td></tr>'}</table>`;
  window.print();}
@@ -5098,7 +5098,7 @@ function calcGo(){const s=$("cc-sym").value,vol=Math.max(0,parseFloat($("cc-vol"
  <div class="kv"><span class="k">P/L if SELL</span><span class="v num">${plS}</span></div>
  <div class="src-note">Paper math \u00B7 1:${LEVERAGE} leverage \u00B7 uses the symbol pip value</div>`;}
 function sheetSessions(){sheetOpen("Sessions & specs",SYMS.map(s=>{const sp=SPECS[s];
- return `<div class="mrow" onclick="sheetSymExec('${s}')"><span class="mtit"><b>${DISP(s)}</b><small>${sp.name} \u00b7 ${sp.session}</small></span><span style="text-align:right"><span class="pill">${execModeOf(s)}</span><br><small class="num" style="color:var(--text3)">${sp.contract.toLocaleString()} / lot</small></span><span class="mchev">\u203a</span></div>`;}).join(""))
+ return `<div class="mrow" onclick="sheetSymExec('${s}')"><span class="mtit"><b>${DISP(s)}</b><small>${sp.name} \u00b7 ${sp.session}</small></span><span style="text-align:right"><span class="pill">${execModeOf(s)}</span><br><small class="num" style="color:var(--text3)">${sp.contract.toLocaleString("en-US")} / lot</small></span><span class="mchev">\u203a</span></div>`;}).join(""))
  +`<p style="color:var(--text3);font-size:12px;margin-top:12px;line-height:1.6">Tap a symbol to set its order execution mode: <b>Market</b> (fill at current price), <b>Instant</b> (fill at your price within max deviation), <b>Request</b> (dealer requote flow), <b>Exchange</b> (fill at the DOM ladder top of book).</p>`;}
 function sheetFeedStatus(){sheetOpen("Feed status",SYMS.map(s=>{const inf=FEED?FEED.info(s):null;
  return `<div class="kv"><span class="k">${DISP(s)}</span><span class="v" style="font-size:12.5px">${badgeHTML(s)}<br><small>${inf&&inf.source?"via "+esc(inf.source):"connecting…"}${inf&&inf.ageSec>=0?" · "+inf.ageSec+"s ago":""}</small></span></div>`;}).join("")
@@ -5463,7 +5463,7 @@ function checkStops(sym,q){const doomed=[];let moved=false;
    derived from the same weekend logic the feed uses (EURUSD CLOSED). */
 const FXSESS=[{n:"Tokyo",o:0,c:9},{n:"London",o:8,c:16},{n:"New York",o:13,c:21}];
 function fxClosedNow(){try{return !!(FEED&&FEED.state&&FEED.state("EURUSDc")==="CLOSED");}catch(e){return false;}}
-function sessLocal(h){try{return new Date(Date.UTC(2024,0,1,h,0)).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});}catch(e){return h+":00";}}
+function sessLocal(h){try{return new Date(Date.UTC(2024,0,1,h,0)).toLocaleTimeString("en-US", {hour:"2-digit",minute:"2-digit"});}catch(e){return h+":00";}}
 function fxSessNow(d){d=d||new Date();const closed=fxClosedNow();
  const mins=d.getUTCHours()*60+d.getUTCMinutes();
  return FXSESS.map(s=>({n:s.n,open:!closed&&mins>=s.o*60&&mins<s.c*60,o:s.o,c:s.c}));}
@@ -5947,7 +5947,7 @@ function updateTradeLive(){let fl=0;
  set("t-bal",money(S.balance));set("t-eq",money(eq));set("t-mg",money(mg));set("t-free",money(fr));
  set("t-dpl",(dp>=0?"+":"−")+money(Math.abs(dp)).slice(1),dp>=0?"var(--profit)":"var(--sell)");
  set("cx-free",money(fr));set("cx-eq",money(eq));set("cx-mg",money(mg));
- set("cx-ml",mg>0?Math.round(eq/mg*100).toLocaleString()+"%":"—");
+ set("cx-ml",mg>0?Math.round(eq/mg*100).toLocaleString("en-US")+"%":"—");
  const tp=$("trade-pill");if(tp){if(document.body.classList.contains("mode-classic")){tp.textContent=(fl>=0?"+":"\u2212")+money(Math.abs(fl)).slice(1);tp.classList.toggle("neg",fl<-0.005);tp.classList.toggle("pos",fl>0.005);}else tp.textContent=money(eq);}}
 /* ---- incremental chart: patch the active candle in place on each tick ---- */
 function tickCandle(sym,q){
@@ -6373,7 +6373,7 @@ function b2_monthly(){
  sheetOpen("Monthly performance",body
   +`<div class="sheet-btns"><button class="sbtn plain" onclick="sheetClose()">Close</button>`
   +`<button class="sbtn primary" onclick="b2_printMonthly()">Print / PDF</button></div>`
-  +`<div class="src-note">Paper trading record — generated ${new Date().toLocaleString()}</div>`);}
+  +`<div class="src-note">Paper trading record — generated ${new Date().toLocaleString("en-US")}</div>`);}
 function b2_printMonthly(){
  var rows=[...(S.deals||[])].sort(function(a,b){return a.time-b.time;});
  var body=rows.map(function(d){var dg=SPECS[d.sym]?SPECS[d.sym].digits:2;
@@ -6382,7 +6382,7 @@ function b2_printMonthly(){
   +`<td>${(d.pl||0)>=0?"+":"−"}${Math.abs(d.pl||0).toFixed(2)}</td><td>${esc(dealReason(d.reason))}</td></tr>`;}).join("");
  var pl=rows.reduce(function(a,d){return a+(d.pl||0)+(d.swap||0);},0);
  $("print-area").innerHTML=`<h1>OrbitTrader 6.3 — Monthly Trading Report</h1>`
- +`<p>Account ${esc(S.acctId)} · ${esc(S.acctLabel||"")} · generated ${new Date().toLocaleString()} · paper trading, no real money</p>`
+ +`<p>Account ${esc(S.acctId)} · ${esc(S.acctLabel||"")} · generated ${new Date().toLocaleString("en-US")} · paper trading, no real money</p>`
  +`<table><tr><th>Closed</th><th>Symbol</th><th>Side</th><th>Lots</th><th>Open</th><th>Close</th><th>P/L</th><th>Reason</th></tr>${body}</table>`
  +`<p><b>Total net P/L: ${pl>=0?"+":"−"}$${Math.abs(pl).toFixed(2)}</b> · ${rows.length} closed deals</p>`;
  setTimeout(function(){window.print();},60);}

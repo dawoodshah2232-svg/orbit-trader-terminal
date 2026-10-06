@@ -1565,6 +1565,15 @@
   getCandlesRaw: function (sym, tf) {
       if (!SYMS[sym] || !TF_MS[tf] && tf !== "MN1") return null;
       var sk = SYMS[sym].kind;
+      // v6.3 workstation: desktop-only intervals without a dedicated upstream
+      // endpoint are derived strictly from this symbol's real M1 series.
+      // If M1 is unavailable, the derived interval is unavailable too.
+      if (DERIVED_FROM_M1[tf]) {
+        var baseM1 = api.getCandlesRaw(sym, "M1");
+        if (!baseM1 || !baseM1.length) return null;
+        var derived = resample(baseM1, TF_MS[tf]);
+        return derived && derived.length ? derived : null;
+      }
       // v5.3: spot/fx intraday candles = relay seed + local M1 cache + live
       // Swissquote ticks merged (live wins on overlap). The chart paints from
       // the seed immediately; the first live candle renders as soon as it

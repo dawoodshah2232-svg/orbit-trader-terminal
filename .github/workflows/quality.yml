@@ -1,0 +1,25 @@
+name: Workstation Quality
+on:
+  push:
+    branches:
+      - main
+      - "rebuild/**"
+  pull_request:
+    branches:
+      - main
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --check workstation.js
+      - run: node --check version.js
+      - run: grep -q 'workstation.css' index.html
+      - run: grep -q 'workstation.js' index.html
+      - run: grep -q 'data-ot-app=' index.html
+      - run: "! grep -q 'OrbitTrader 6.1' index.html"
+      - run: "! grep -q 'About OrbitTrader 5' index.html"

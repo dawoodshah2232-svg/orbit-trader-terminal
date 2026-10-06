@@ -17,7 +17,9 @@ jobs:
         with:
           node-version: 22
       - run: node --check workstation.js
+      - run: node --check feed.js
       - run: node --check version.js
+      - run: node qa-smoke.js
       - run: grep -q 'workstation.css' index.html
       - run: grep -q 'workstation.js' index.html
       - run: grep -q 'data-ot-app=' index.html

@@ -2278,7 +2278,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
   <div class="screen" id="scr-signals">
     <header class="appbar">
       <button class="iconbtn" onclick="drawer(true)" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      <div><div class="title">Traders Community</div><div class="sub">Copy-trading signals</div></div>
+      <div><div class="title">Traders Community</div><div class="sub">Local/demo copy-trading signals · not a public social network</div></div>
     </header>
     <div class="scroll">
       <div class="setsec">My subscriptions</div>
@@ -5910,7 +5910,7 @@ function rxQSearch(){const w=$("rx-qsearch");if(!w)return;const open=w.classList
 function rxChartFavToggle(){qFav(S.chartSym);
  const fb=$("ch-favbtn");if(fb)fb.classList.toggle("on",(S.favs||[]).indexOf(S.chartSym)>=0);}
 function rxQA(k){if(k==="trade")openTicket();else if(k==="deposit")qaDeposit();else if(k==="withdraw")qaWithdraw();else if(k==="transfer")qaTransfer();}
-function rxCommunity(){toast("Traders Community","Community features are coming soon");}
+function rxCommunity(){nav("signals");}
 /* ---- messages screen ---- */
 function renderMessages(){const el=$("msg-list");if(!el)return;
  const bc=getBroadcasts().map(m=>({id:String(m.id),from:m.from||"Broker",title:m.title||"(no subject)",

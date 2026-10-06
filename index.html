@@ -3005,7 +3005,7 @@ function sheetSymbol(s){const sp=SPECS[s];const c=symCond(s);const q=FEED?FEED.g
  <div class="sheet-btns"><button class="sbtn plain" onclick="sheetClose();openChart('${s}')">Chart</button><button class="sbtn plain" onclick="sheetAlertNew('${s}')">Alert</button><button class="sbtn primary" onclick="sheetClose();openTicket('${s}')">New order</button></div>`);}
 
 /* ================= CHART ================= */
-const TFS=["M1","M5","M15","M30","H1","H4","D1","W1","MN1"];
+const TFS=["M1","M2","M3","M4","M5","M6","M10","M12","M15","M20","M30","H1","H2","H3","H4","H6","H8","H12","D1","W1","MN1"];
 let chartTimer=null, lastCandles=null, chartKey="";
 /* v5.20: chart load recovery — if the initial load gives up with no candles,
    keep retrying quietly until the feed returns (no manual refresh). */

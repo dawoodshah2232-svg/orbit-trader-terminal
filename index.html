@@ -2378,7 +2378,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
   <div class="screen" id="scr-tester">
     <header class="appbar">
       <button class="iconbtn" onclick="drawer(true)" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      <div><div class="title">Strategy Tester</div><div class="sub">Backtest rule-based ideas</div></div>
+      <div><div class="title">Strategy Lab</div><div class="sub">Rule-based backtesting · not an EA/MQL runtime</div></div>
     </header>
     <div class="scroll">
       <div class="setsec">Setup</div>
@@ -2391,7 +2391,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
         <select class="hsel" id="ts-sym" style="flex:1;min-width:120px;padding:11px"></select>
       </div>
       <div style="padding:12px 16px"><button class="chipbtn" id="ts-run" onclick="runTester()" style="width:100%;padding:13px;font-size:15px;font-weight:800">Run backtest</button></div>
-      <div class="src-note" style="padding:0 16px;font-size:12px;color:var(--text2)">Tests run on loaded chart history for the symbol. Paper simulation — not a promise of future results.</div>
+      <div class="src-note" style="padding:0 16px;font-size:12px;color:var(--text2)">Rule-based paper backtest on loaded chart history. This is not an MQL/EA runtime and is not a promise of future results.</div>
       <div class="setsec">Results</div>
       <div id="ts-out" style="padding:0 16px"><div class="empty">Choose a strategy and run the test.</div></div>
       <div style="height:20px"></div>
@@ -4572,7 +4572,7 @@ function renderPortfolio(){const m={};S.positions.forEach(p=>{const e=m[p.sym]=m
      return `<td class="num" style="padding:8px;text-align:center;background:${bg};border-radius:6px">${c.toFixed(2)}</td>`;}).join("")+`</tr>`).join("")+`</table></div>`;}
  }catch(e){}}
  $("pf-corr").innerHTML=html;}
-/* ---------- strategy tester screen (advanced flagship) ---------- */
+/* ---------- strategy lab screen (advanced flagship) ---------- */
 function btCompute(sym,tf,strat){let cs=null;try{cs=FEED.getCandles(sym,tf);}catch(e){}
  if(!cs||cs.length<60)return {error:`Not enough real history for ${DISP(sym)} ${tf}.`};
  const cl=cs.map(c=>c[4]),sp=SPECS[sym];

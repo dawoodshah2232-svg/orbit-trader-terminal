@@ -88,7 +88,7 @@
   var LIVE_IDS = ["bitcoin", "ethereum", "solana", "binancecoin", "ripple", "pax-gold",
     "dogecoin", "cardano", "avalanche-2", "chainlink", "the-open-network", "polkadot", "litecoin",
     "tron", "near", "uniswap", "cosmos", "arbitrum", "optimism", "sui"].join(",");
-  var TF_MS = { M1: 60000, M5: 300000, M15: 900000, M30: 1800000, H1: 3600000, H4: 14400000, D1: 86400000, W1: 604800000 };
+  var TF_MS = { M1:60000, M2:120000, M3:180000, M4:240000, M5:300000, M6:360000, M10:600000, M12:720000, M15:900000, M20:1200000, M30:1800000, H1:3600000, H2:7200000, H3:10800000, H4:14400000, H6:21600000, H8:28800000, H12:43200000, D1:86400000, W1:604800000 };\n  var DERIVED_FROM_M1 = {M2:true,M3:true,M4:true,M6:true,M10:true,M12:true,M20:true,H2:true,H3:true,H6:true,H8:true,H12:true};
   // v5.8 (audit C05): W1 buckets start Monday 00:00 UTC, not Thursday.
   // Unix epoch 0 was a Thursday; Monday 1970-01-05 00:00 UTC = +345600000ms.
   var WEEK_MON_ANCHOR = 345600000;

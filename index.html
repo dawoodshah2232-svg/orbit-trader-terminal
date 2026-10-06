@@ -1890,9 +1890,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
       <button class="dtool" data-tool="rect" onclick="setDrawTool('rect',this)">Zone</button>
       <button class="dtool" data-tool="text" onclick="setDrawTool('text',this)">Text</button>
       <button class="dtool" data-tool="rr" onclick="setDrawTool('rr',this)">R:R</button>
-      <button class="dtool" data-tool="measure" onclick="setDrawTool('measure',this)">📏</button>
+      <button class="dtool" data-tool="measure" onclick="setDrawTool('measure',this)">Measure</button>
       <span class="dsep"></span>
-      <button class="dtool off" id="magnet-btn" onclick="tglMagnet()" title="Magnet snap">🧲</button>
+      <button class="dtool off" id="magnet-btn" onclick="tglMagnet()" title="Magnet snap">Snap</button>
       <button class="dsw on" data-c="#FFD60A" style="background:#FFD60A" onclick="setDrawColor('#FFD60A',this)" title="Yellow"></button>
       <button class="dsw" data-c="#2F80FF" style="background:#2F80FF" onclick="setDrawColor('#2F80FF',this)" title="Blue"></button>
       <button class="dsw" data-c="#F23645" style="background:#F23645" onclick="setDrawColor('#F23645',this)" title="Red"></button>
@@ -3255,7 +3255,7 @@ function lwcRefreshLines(){
    lwcAddLine(o.price,col,2,1,(o.type||"Order")+" "+o.vol);});
  }
  S.alerts.filter(function(a){return!a.fired&&a.sym===S.chartSym&&(a.kind||"price")==="price";}).forEach(function(a){
-  lwcAddLine(a.price,C.amber,3,1,"🔔 "+a.price);});
+  lwcAddLine(a.price,C.amber,3,1,"Alert "+a.price);});
  if(q){
   if(cs.askLine||cs.bidLine){
    /* v5.18: ONE price line at the last price with a single compact axis
@@ -3843,8 +3843,8 @@ function sheetChartSettings(){const cs=S.chartSet;
  <div style="display:flex;gap:8px;margin:8px 0"><input class="tplinput" id="tpl-name" placeholder="Template name" style="margin:0;flex:1"><button class="mini-btn" onclick="saveTemplate()">Save</button></div>
  <div id="tpl-list">${tplListHTML()}</div>
  <div class="trow" onclick="lwcResetZoom()"><span class="lab">Reset zoom</span><span class="val">›</span></div>
- <div class="trow" onclick="lwcShot()"><span class="lab">📷 Save chart screenshot</span><span class="val">›</span></div>
- <div class="trow" onclick="lwcShare()"><span class="lab">📤 Share chart</span><span class="val">›</span></div>
+ <div class="trow" onclick="lwcShot()"><span class="lab">Save chart screenshot</span><span class="val">›</span></div>
+ <div class="trow" onclick="lwcShare()"><span class="lab">Share chart</span><span class="val">›</span></div>
  <div class="trow" onclick="objClear()"><span class="lab" style="color:var(--sell)">Delete all drawings</span><span class="val">›</span></div>
  <div class="sheet-btns"><button class="sbtn plain" onclick="sheetClose();sheetIndicators()">Indicators</button><button class="sbtn plain" onclick="sheetClose();sheetObjects()">Objects</button></div>`);}
 function chsetLp(v){S.chartSet.lpStyle=parseInt(v,10)||0;saveExt();drawChart();}
@@ -3852,7 +3852,7 @@ function chsetLp(v){S.chartSet.lpStyle=parseInt(v,10)||0;saveExt();drawChart();}
 function sheetIndicators(){const defs=IND_DEFS;
  const presets=[["ema","EMA 9/21"],["sma","SMA 50"],["bb","Bollinger"],["rsi","RSI 14"],["macd","MACD"],["stoch","Stochastic"],["atr","ATR 14"],["cci","CCI 14"]];
  const rows=(S.indList||[]).filter(function(i){return defs[i.type];}).map(function(i){const d=defs[i.type];
-  return `<div class="indrow"><button class="tgl-eye${i.vis?"":" off"}" onclick="indTgl('${i.id}')">👁</button>
+  return `<div class="indrow"><button class="tgl-eye${i.vis?"":" off"}" onclick="indTgl('${i.id}')">View</button>
   <div class="inm"><b>${d.name}</b><div class="ind">${esc(d.labels(i))}${d.kind==="osc"?" · lower pane":" · overlay"}</div></div>
   <button class="mini-btn" onclick="indEdit('${i.id}')">⚙</button><button class="mini-btn danger" onclick="indDel('${i.id}')">✕</button></div>`;}).join("");
  sheetOpen("Indicators",`<div class="sheet-btns" style="margin-bottom:6px"><button class="sbtn primary" onclick="sheetClose();sheetCatInd()">Indicator catalog · 38</button></div><div class="sheet-sub">Quick add</div><div class="preset-grid">${presets.map(function(pr){return `<button class="preset" onclick="indPreset('${pr[0]}')">${pr[1]}</button>`;}).join("")}</div>
@@ -3971,7 +3971,7 @@ function indSave(id){const ind=(S.indList||[]).find(x=>x.id===id);if(!ind)return
  save();drawChart();sheetIndicators();toast(def.name+" updated",def.labels(ind));}
 /* objects manager */
 function sheetObjects(){const l=getObjs();
- const rows=l.length?l.map(o=>`<div class="indrow"><button class="tgl-eye${o.vis!==false?"":" off"}" onclick="objVis('${o.id}')">👁</button>
+ const rows=l.length?l.map(o=>`<div class="indrow"><button class="tgl-eye${o.vis!==false?"":" off"}" onclick="objVis('${o.id}')">View</button>
  <div class="inm"><b>${esc(o.name)}</b><div class="ind">${esc(o.type)} · ${DISP(S.chartSym)} ${esc(S.chartTF)}</div></div>
  <button class="mini-btn danger" onclick="objDel('${o.id}')">✕</button></div>`).join("")
  :`<div class="empty" style="padding:16px">No drawings on this chart.<br>Open the toolbar (pencil icon) and tap two points.</div>`;
@@ -5012,7 +5012,7 @@ function checkAlerts(sym,q){let changed=false;
  S.alerts.forEach(a=>{if(a.fired||a.sym!==sym||(a.kind||"price")!=="price")return;
   if((a.cond==="above"&&q.mid>=a.price)||(a.cond==="below"&&q.mid<=a.price)){
    a.fired=true;changed=true;
-   showBanner(`🔔 ${DISP(sym)} ${a.cond} ${a.price}`,`Now trading at ${q.mid.toFixed(q.digits)}`,sym);}});
+   showBanner(`${DISP(sym)} alert: ${a.cond} ${a.price}`,`Now trading at ${q.mid.toFixed(q.digits)}`,sym);}});
  if(changed){save();renderAlerts();renderDrawer();}}
 
 /* ================= MORE SHEETS ================= */
@@ -6123,7 +6123,7 @@ function ntfAdd(type,title,sub,crit){
 function ntfBadge(){var el=$("ntf-badge");if(!el)return;
  var n=NTFS.filter(function(x){return !x.read;}).length;
  el.style.display=n?"flex":"none";el.textContent=n>99?"99+":n;}
-var NTF_ICON={pos:"📈",sltp:"🎯",order:"📝",alert:"🔔",margin:"⚠️",deposit:"💰",system:"ℹ️"};
+var NTF_ICON={pos:"POS",sltp:"SL/TP",order:"ORD",alert:"ALERT",margin:"RISK",deposit:"FUND",system:"SYS"};
 var NTF_NAME={pos:"Positions",sltp:"SL / TP hits",order:"Pending orders",alert:"Price alerts",margin:"Margin warnings",deposit:"Deposits",system:"System"};
 function b2_ntfCenter(){
  var p=ntfPrefs();
@@ -6154,7 +6154,7 @@ function b2_ntfReadAll(){NTFS.forEach(function(n){n.read=true;});ntfSave();ntfBa
 var _showBanner=showBanner;
 showBanner=function(title,sub,sym){
  var type="system",crit=false;
- if(title.indexOf("🔔")===0)type="alert";
+ if(/alert/i.test(title))type="alert";
  else if(title.indexOf("⚡")===0)type="order";
  else if(title.indexOf("⌛")===0)type="order";
  else if(/margin|stop-?out/i.test(title)){type="margin";crit=true;}
@@ -6182,7 +6182,7 @@ closePos=function(id,px,auto){
   if(d&&hitKind)d.reason=hitKind==="sl"?"SL hit":"TP hit";
   var pp=ntfPrefs();
   ntfAdd("sltp",hit+" · "+DISP(p.sym),p.dir.toUpperCase()+" "+p.vol+" lots · P/L "+pls,false);
-  if(pp.sltp!==false&&!inQuiet())_showBanner((isTp?"🎯 ":"🛑 ")+hit,DISP(p.sym)+" · P/L "+pls,null);}
+  if(pp.sltp!==false&&!inQuiet())_showBanner((isTp?"TP: ":"SL: ")+hit,DISP(p.sym)+" · P/L "+pls,null);}
  else ntfAdd("pos","Position closed · "+DISP(p.sym),p.dir.toUpperCase()+" "+p.vol+" lots · P/L "+pls,false);};
 
 /* opens + blocked-account enforcement */
@@ -6311,7 +6311,7 @@ function b2_marginCheck(){
  if(mg<=0||!isFinite(eq)){el.className="";el.style.display="none";b2_mlBand="";return;}
  var ml=eq/mg*100;
  if(ml<120){el.className="danger";el.style.display="block";
-  el.innerHTML="🚨 Margin level "+ml.toFixed(0)+"% — stop-out risk! Close or top up positions now.";
+  el.innerHTML="RISK · Margin level "+ml.toFixed(0)+"% — stop-out risk. Close or top up positions now.";
   if(b2_mlBand!=="d"){b2_mlBand="d";ntfAdd("margin","Stop-out risk","Margin level "+ml.toFixed(0)+"% — below 120%",true);}}
  else if(ml<150){el.className="warn";el.style.display="block";
   el.innerHTML="⚠️ Margin level "+ml.toFixed(0)+"% — below 150%. Consider reducing exposure.";
@@ -6346,7 +6346,7 @@ function b2_ledger(){
  var dep=rows.filter(function(r){return r.kind==="deposit";}).reduce(function(a,r){return a+r.amt;},0);
  var wd=rows.filter(function(r){return r.kind==="withdrawal";}).reduce(function(a,r){return a+r.amt;},0);
  var tpl=rows.filter(function(r){return r.kind==="trade";}).reduce(function(a,r){return a+r.amt;},0);
- var ICON={deposit:"💰",withdrawal:"🏧",trade:"📊"};
+ var ICON={deposit:"DEP",withdrawal:"WDL",trade:"TRD"};
  var html=`<div class="b2-lsum"><div class="stat"><span>Deposits</span><b class="up num">+${money(dep).slice(1)}</b></div>`
   +`<div class="stat"><span>Withdrawals</span><b class="num">${money(wd)}</b></div>`
   +`<div class="stat"><span>Trade P/L</span><b class="${tpl>=0?"up":"down"} num">${tpl>=0?"+":"−"}${money(Math.abs(tpl)).slice(1)}</b></div></div>`
@@ -6698,7 +6698,7 @@ function riskCheck(sym,dir,vol,sl,type,trig){
  if(mexp>0){var tot=S.mode==="netting"?riskProjExp(sym,dir,vol)
    :(function(){var t=vol;try{t=S.positions.reduce(function(a,p){return a+p.vol;},0)+vol;}catch(e){}return t;})();
   if(tot>mexp+1e-9){toast("Risk budget exceeded","Max exposure "+mexp+" lots · demo guard");
-   showBanner("🛡️ Risk budget exceeded","Max exposure "+mexp+" lots would be breached · demo guard",sym);return false;}}
+   showBanner("Risk budget exceeded","Max exposure "+mexp+" lots would be breached · demo guard",sym);return false;}}
  if(lim>0){var worst;
   if(S.mode==="netting"){var pr=riskNetProj(sym,dir,vol);worst=0;
    if(pr.closeVol>0&&pr.opp){var upp=0;try{upp=usdPerPrice(sym);}catch(e){}
@@ -6707,7 +6707,7 @@ function riskCheck(sym,dir,vol,sl,type,trig){
    if(pr.newVol>0)worst+=riskWorst(sym,pr.newDir||dir,pr.newVol,sl||0,px);}
   else worst=riskWorst(sym,dir,vol,sl||0,px);
   if(riskLostToday()+worst>lim+1e-9){toast("Risk budget exceeded","Daily loss limit "+money(lim)+" · demo guard");
-   showBanner("🛡️ Risk budget exceeded","Daily loss limit "+money(lim)+" would be breached · demo guard",sym);return false;}}
+   showBanner("Risk budget exceeded","Daily loss limit "+money(lim)+" would be breached · demo guard",sym);return false;}}
  return true;}
 var _ra5=renderAccount;
 renderAccount=function(){_ra5();

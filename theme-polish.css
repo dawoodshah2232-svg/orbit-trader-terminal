@@ -145,3 +145,23 @@ html[data-theme="dark"] body[data-ot-app] .kpi,
 html[data-theme="dark"] body[data-ot-app] .srow,
 html[data-theme="dark"] body[data-ot-app] .crow,
 html[data-theme="dark"] body[data-ot-app] .mtab{box-shadow:none!important}
+
+/* final mobile header + demo-state polish */
+@media(max-width:1023px){
+  body[data-ot-app="admin"] .rx-top{gap:7px!important;padding-left:14px!important;padding-right:12px!important}
+  body[data-ot-app="admin"] .rx-top .rx-brand{font-size:15.5px!important;gap:7px!important;overflow:hidden!important}
+  body[data-ot-app="admin"] .rx-top .rx-brand svg{width:27px!important;height:27px!important}
+  body[data-ot-app="admin"] #mode-seg{display:none!important}
+  body[data-ot-app="admin"] .rx-role{font-size:9px!important;padding:4px 7px!important;border-radius:6px!important}
+  body[data-ot-app="admin"] .rx-top .iconbtn{width:36px!important;height:36px!important;border-radius:9px!important}
+  body[data-ot-app="manager"] #demobar.show,
+  body[data-ot-app="admin"] #admbar{
+    background:rgba(217,164,65,.12)!important;color:#d6a33b!important;
+    border-top:1px solid rgba(217,164,65,.20)!important;border-bottom:1px solid rgba(217,164,65,.20)!important;
+    font-size:10.5px!important;line-height:1.35!important;letter-spacing:.03em!important;padding:6px 10px!important;
+  }
+  html[data-theme="light"] body[data-ot-app="manager"] #demobar.show,
+  html[data-theme="light"] body[data-ot-app="admin"] #admbar{
+    background:#fff7e5!important;color:#805c10!important;border-color:#efd99d!important;
+  }
+}

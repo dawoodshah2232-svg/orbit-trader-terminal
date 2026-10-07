@@ -160,7 +160,7 @@ function findTab(part){
   return false;
 }
 
-function buildChrome(){
+function buildChrome(){if(!desktop.matches)return;
   if(qs("#ot-commandbar"))return;
   var bar=el("div","","");bar.id="ot-commandbar";
   var brand=el("div","ot-brand-mini",'<span class="ot-brand-dot"></span><span>OrbitTrader</span>');

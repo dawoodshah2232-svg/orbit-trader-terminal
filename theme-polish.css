@@ -165,3 +165,16 @@ html[data-theme="dark"] body[data-ot-app] .mtab{box-shadow:none!important}
     background:#fff7e5!important;color:#805c10!important;border-color:#efd99d!important;
   }
 }
+
+/* compact mobile operational notifications */
+@media(max-width:1023px){
+  body[data-ot-app="manager"] #toast,
+  body[data-ot-app="admin"] #toast{
+    left:auto!important;right:12px!important;bottom:12px!important;width:min(290px,calc(100vw - 24px))!important;
+    padding:9px 11px!important;border-radius:9px!important;text-align:left!important;font-size:12px!important;
+    line-height:1.35!important;background:var(--ot-panel2)!important;border:1px solid var(--ot-border)!important;
+    color:var(--ot-text)!important;box-shadow:0 12px 30px rgba(0,0,0,.18)!important;
+  }
+  body[data-ot-app="manager"] #toast small,
+  body[data-ot-app="admin"] #toast small{font-size:10.5px!important;color:var(--ot-muted)!important;margin-top:2px!important}
+}

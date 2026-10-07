@@ -1762,6 +1762,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
 }
 </style>
 <link rel="stylesheet" href="workstation.css?v=20261006ws1">
+<link rel="stylesheet" href="theme-polish.css?v=202610071650">
 <script src="version.js?v=20261006ws1"></script>
 <script defer src="workstation.js?v=20261006ws1"></script>
 </head>
@@ -2198,7 +2199,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{
   <div class="screen" id="scr-account">
     <header class="appbar">
       <button class="iconbtn" onclick="drawer(true)" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      <div class="rx-brand" style="flex:1;display:flex;align-items:center;gap:9px;font-size:17px;font-weight:800;letter-spacing:-.015em"><svg viewBox="0 0 512 512"><defs><radialGradient id="PLG1" cx="0.35" cy="0.3" r="0.95"><stop offset="0" stop-color="#9CC6FF"/><stop offset="0.45" stop-color="#3E8BFF"/><stop offset="1" stop-color="#0C46B8"/></radialGradient><linearGradient id="RG1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6FA5FF"/><stop offset="0.55" stop-color="#2F80FF" stop-opacity=".7"/><stop offset="1" stop-color="#2F80FF" stop-opacity=".2"/></linearGradient><clipPath id="FC1"><rect x="-40" y="244" width="592" height="308" transform="rotate(-18 256 256)"/></clipPath></defs><ellipse cx="256" cy="256" rx="214" ry="72" fill="none" stroke="url(#RG1)" stroke-width="26" transform="rotate(-18 256 256)"/><circle cx="256" cy="256" r="112" fill="url(#PLG1)"/><ellipse cx="216" cy="206" rx="46" ry="30" fill="#FFFFFF" opacity="0.3" transform="rotate(-24 216 206)"/><g clip-path="url(#FC1)"><ellipse cx="256" cy="256" rx="214" ry="72" fill="none" stroke="url(#RG1)" stroke-width="26" transform="rotate(-18 256 256)"/></g></svg><b>Orbit<span style="color:var(--buy)">Trader 6.1</span></b></div>
+      <div class="rx-brand" style="flex:1;display:flex;align-items:center;gap:9px;font-size:17px;font-weight:800;letter-spacing:-.015em"><svg viewBox="0 0 512 512"><defs><radialGradient id="PLG1" cx="0.35" cy="0.3" r="0.95"><stop offset="0" stop-color="#9CC6FF"/><stop offset="0.45" stop-color="#3E8BFF"/><stop offset="1" stop-color="#0C46B8"/></radialGradient><linearGradient id="RG1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6FA5FF"/><stop offset="0.55" stop-color="#2F80FF" stop-opacity=".7"/><stop offset="1" stop-color="#2F80FF" stop-opacity=".2"/></linearGradient><clipPath id="FC1"><rect x="-40" y="244" width="592" height="308" transform="rotate(-18 256 256)"/></clipPath></defs><ellipse cx="256" cy="256" rx="214" ry="72" fill="none" stroke="url(#RG1)" stroke-width="26" transform="rotate(-18 256 256)"/><circle cx="256" cy="256" r="112" fill="url(#PLG1)"/><ellipse cx="216" cy="206" rx="46" ry="30" fill="#FFFFFF" opacity="0.3" transform="rotate(-24 216 206)"/><g clip-path="url(#FC1)"><ellipse cx="256" cy="256" rx="214" ry="72" fill="none" stroke="url(#RG1)" stroke-width="26" transform="rotate(-18 256 256)"/></g></svg><b>Orbit<span style="color:var(--buy)">Trader 6.3</span></b></div>
       <button class="iconbtn" onclick="nav('messages',document.querySelectorAll('#tabbar .tab')[4])" aria-label="Mailbox" style="position:relative"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg><span class="rx-nbadge" id="acct-mail-n" style="position:absolute;top:2px;right:2px"></span></button>
     </header>
     <div class="scroll">
@@ -5118,7 +5119,7 @@ function sheetAppInfo(){sheetOpen("About",`
   <svg viewBox="0 0 512 512" style="width:52px;height:52px;flex:none"><ellipse cx="256" cy="256" rx="214" ry="72" fill="none" stroke="#2F80FF" stroke-width="34" transform="rotate(-18 256 256)"/><circle cx="256" cy="256" r="104" fill="#2F80FF"/></svg>
   <div><div style="font-size:19px;font-weight:800">Orbit<span style="color:#2F80FF">Trader</span></div>
   <div style="font-size:13px;color:var(--text2)">Trade the universe.</div></div></div>
- <div class="kv"><span class="k">Version</span><span class="v num">6.1</span></div>
+ <div class="kv"><span class="k">Version</span><span class="v num">6.3</span></div>
  <div class="kv"><span class="k">Account</span><span class="v num">${esc(S.acctId||"\u2014")} \u00b7 ${esc(S.acctLabel||"Demo")}</span></div>
  <div class="kv"><span class="k">Execution</span><span class="v">Paper trading</span></div>
  <p style="color:var(--text3);font-size:12.5px;margin-top:14px;line-height:1.7">Paper trading with real market prices. Trades stay on this device \u2014 nothing here moves real money. Not investment advice.</p>`);}
